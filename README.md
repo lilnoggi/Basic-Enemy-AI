@@ -37,7 +37,7 @@ The most critical challenge encountered was resolving the conflict between the *
 ## Setup and Installation
 
 ### Requirements
-* **Unity:** Version [6000.2 10f1]
+* **Unity:** Version 6.2 [6000.2 10f1]
 * **Unity Packages:** Navigation (NavMesh)
 
 ### Steps
