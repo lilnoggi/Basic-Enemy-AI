@@ -17,6 +17,11 @@ public class Enemy : MonoBehaviour
     private float chasingSpeed = 4f; // Speed of chasing
     public NavMeshAgent agent; // Reference to the NavMeshAgent component
 
+    [Header("Damage Settings")]
+    public float attackDamage = 10f; // Damage dealt to the player
+    public float attackRange = 2f; // Range for attacking the player
+
+    // === References to Other Scripts === \\
     private EnemyStates enemyStates; // Reference to the EnemyStates script
     private DistanceToPlayer distanceToPlayer; // Reference to the DistanceToPlayer script
 
@@ -98,4 +103,12 @@ public class Enemy : MonoBehaviour
     // === Attack Player State Methods === \\
     // (To be implemented)
     // === End Attack Player State Methods === \\
+
+    // Gizmos for visualisation
+    private void OnDrawGizmosSelected()
+    {
+        // Attack range visualisation
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
 }

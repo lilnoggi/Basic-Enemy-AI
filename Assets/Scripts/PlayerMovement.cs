@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
             playerMovementSpeed = playerWalkSpeed; // Stop sprinting, revert to walk speed
         }
 
-        Debug.Log(playerMovementSpeed); // Debug log for movement speed
+        //Debug.Log(playerMovementSpeed); // Debug log for movement speed
     }
 
     // Get player movement input \\
