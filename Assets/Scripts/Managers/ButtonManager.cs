@@ -9,6 +9,25 @@ public class ButtonManager : MonoBehaviour
     // Attach this script to a ButtonManager GameObject in the scene.
     // ================================= \\
 
+    // === Main Menu Buttons === \\
+
+    // --- Play Button --- \\
+    public void PlayButton()
+    {
+        // Load the main game scene
+        SceneManager.LoadScene("EnemyAI_Scene"); // Loads the game scene
+    }
+
+    // --- Quit Button --- \\
+    public void QuitGame()
+    {
+        // Quit the application
+        Application.Quit(); // Exits the game application
+        Debug.Log("Game Quit!"); // Log message for quitting
+    }
+
+    // === Game Over Buttons === \\
+
     // --- Retry Button --- \\
     public void RetryButton()
     {
