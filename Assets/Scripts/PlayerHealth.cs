@@ -15,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Health UI")]
     public TextMeshProUGUI healthText; // UI element to display health
+    public GameObject gameOverPanel; // Game over panel
 
 
     private void Start()
@@ -42,7 +43,15 @@ public class PlayerHealth : MonoBehaviour
     // Method to handle player death \\
     private void Die()
     {
+        // Enable mouse
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        // Stop time
+        Time.timeScale = 0f;
+
         // Handle player death (e.g., respawn, game over screen, etc.)
         Debug.Log("Player has died.");
+        gameOverPanel.SetActive(true); // Show game over panel
     }
 }
