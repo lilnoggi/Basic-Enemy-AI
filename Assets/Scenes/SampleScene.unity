@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   wanderRadius: 10
-  agent: {fileID: 0}
+  agent: {fileID: 1230782281}
   attackDamage: 10
   attackRange: 3.5
 --- !u!195 &1230782281

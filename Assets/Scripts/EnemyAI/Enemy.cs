@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     // === References to Other Scripts === \\
     private EnemyStates enemyStates; // Reference to the EnemyStates script
     private DistanceToPlayer distanceToPlayer; // Reference to the DistanceToPlayer script
+    private PlayerHealth playerHealth; // Reference to the PlayerHealth script
 
     private void Awake()
     {
@@ -38,10 +39,19 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        enemyStates = GetComponent<EnemyStates>(); // Get the EnemyStates component
-        distanceToPlayer = GetComponent<DistanceToPlayer>(); // Get the DistanceToPlayer component
+        enemyStates = GetComponent<EnemyStates>();
+        distanceToPlayer = GetComponent<DistanceToPlayer>();
 
-        InvokeRepeating("Wander", 0, 5f); // Call the Wander method every 5 seconds
+        // --- THE FIX ---
+        // 1. Check if we have a reference to the player location
+        if (distanceToPlayer != null && distanceToPlayer.playerLocation != null)
+        {
+            // 2. Find the PlayerHealth script specifically ON THE PLAYER OBJECT
+            playerHealth = distanceToPlayer.playerLocation.GetComponent<PlayerHealth>();
+        }
+        // ----------------
+
+        InvokeRepeating("Wander", 0, 5f);
     }
 
     // === Idle State Methods === \\
@@ -117,13 +127,21 @@ public class Enemy : MonoBehaviour
     // === End Chase Player State Methods === \\
 
     // === Attack Player State Methods === \\
+
+    // --- Attack the player and reduce their health --- \\
     public void AttackPlayer(DistanceToPlayer player)
     {
-            // Here,implement the logic to deal damage to the player.
-            // For example:
-            // player.TakeDamage(attackDamage);
-            Debug.Log("Attacking Player for " + attackDamage + " damage!");
+
+        Debug.Log("Attacking Player for " + attackDamage + " damage!"); // Log attack action
+        playerHealth.TakeDamage(attackDamage); // Inflict damage to the player
     }
+
+    // --- Wait for a specified number of seconds before attacking again --- \\
+    public IEnumerator AttackCooldown(DistanceToPlayer player)
+    {
+        yield return new WaitForSeconds(1.5f); // Wait for 1.5 seconds
+    }
+
     // === End Attack Player State Methods === \\
 
     // Gizmos for visualisation
