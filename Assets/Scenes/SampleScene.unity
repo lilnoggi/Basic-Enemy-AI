@@ -1164,6 +1164,7 @@ MonoBehaviour:
   agent: {fileID: 1230782281}
   attackDamage: 10
   attackRange: 3.5
+  attackCooldown: 0.5
 --- !u!195 &1230782281
 NavMeshAgent:
   m_ObjectHideFlags: 0

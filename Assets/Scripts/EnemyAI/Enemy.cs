@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     [Header("Attack Settings")]
     public float attackDamage = 10f; // Damage dealt to the player
     public float attackRange = 2f; // Range for attacking the player
+    public float attackCooldown = 0.5f; // Cooldown time between attacks
+    private float nextAttackTime = 0f; // Time until the next attack is allowed
 
     // === References to Other Scripts === \\
     private EnemyStates enemyStates; // Reference to the EnemyStates script
@@ -59,6 +61,8 @@ public class Enemy : MonoBehaviour
     // === End Idle State Methods === \\
 
     // === Wandering State Methods === \\
+
+    // --- Wander within a specified radius from the start position --- \\
     public void Wander()
     {
         // A simple, safe check is to only set the destination if the agent is not currently stopped.
@@ -81,6 +85,8 @@ public class Enemy : MonoBehaviour
     // === End Wandering State Methods === \\
 
     // === Detected Player State Methods === \\
+
+    // --- Face the player smoothly --- \\
     public void FacePlayer(DistanceToPlayer player)
     {
         // Face the player
@@ -89,16 +95,19 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f); // Smoothly rotate towards player
     }
 
-    // Wait for a specified number of seconds before switching to Chase state
+    // --- Wait for a specified number of seconds before switching to Chase state --- \\
     public IEnumerator FaceAndChaseRoutine(DistanceToPlayer player)
     {
         yield return new WaitForSeconds(0.5f); // Wait for 2 seconds
 
         enemyStates.ChangeState(EnemyStates.State.Chase); // Switch to Chase state
     }
+
     // === End Detected Player State Methods === \\
 
     // === Chase Player State Methods === \\
+
+    // --- Chase the player until within attack range --- \\
     public void ChasePlayer()
     {
         // 1. Safety Check: Ensure references exist first
@@ -113,7 +122,7 @@ public class Enemy : MonoBehaviour
             // If close enough, switch to Attack
             enemyStates.ChangeState(EnemyStates.State.Attack);
 
-            // Optional: Stop the agent so they don't push the player
+            // Stop the agent so they don't push the player
             agent.isStopped = true;
         }
         else
@@ -131,15 +140,16 @@ public class Enemy : MonoBehaviour
     // --- Attack the player and reduce their health --- \\
     public void AttackPlayer(DistanceToPlayer player)
     {
-
-        Debug.Log("Attacking Player for " + attackDamage + " damage!"); // Log attack action
-        playerHealth.TakeDamage(attackDamage); // Inflict damage to the player
-    }
-
-    // --- Wait for a specified number of seconds before attacking again --- \\
-    public IEnumerator AttackCooldown(DistanceToPlayer player)
-    {
-        yield return new WaitForSeconds(1.5f); // Wait for 1.5 seconds
+        if (Time.time >= nextAttackTime)
+        {
+            if (playerHealth != null)
+            {
+                Debug.Log("Attacking Player for " + attackDamage + " damage!"); // Log attack action
+                playerHealth.TakeDamage(attackDamage); // Inflict damage to the player
+            }
+            
+            nextAttackTime = Time.time + attackCooldown; // Set the next attack time
+        }
     }
 
     // === End Attack Player State Methods === \\
