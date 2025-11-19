@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     private float chasingSpeed = 4f; // Speed of chasing
     public NavMeshAgent agent; // Reference to the NavMeshAgent component
 
-    [Header("Damage Settings")]
+    [Header("Attack Settings")]
     public float attackDamage = 10f; // Damage dealt to the player
     public float attackRange = 2f; // Range for attacking the player
 
@@ -91,17 +91,39 @@ public class Enemy : MonoBehaviour
     // === Chase Player State Methods === \\
     public void ChasePlayer()
     {
-        if (distanceToPlayer != null && distanceToPlayer.playerLocation != null)
+        // 1. Safety Check: Ensure references exist first
+        if (distanceToPlayer == null || distanceToPlayer.playerLocation == null) return;
+
+        // 2. Check Attack Range logic
+        // Calculate distance
+        float dist = Vector3.Distance(transform.position, distanceToPlayer.playerLocation.position);
+
+        if (dist <= attackRange)
         {
+            // If close enough, switch to Attack
+            enemyStates.ChangeState(EnemyStates.State.Attack);
+
+            // Optional: Stop the agent so they don't push the player
+            agent.isStopped = true;
+        }
+        else
+        {
+            // 3. If NOT close enough, Chase
             agent.isStopped = false; // Ensure the agent is not stopped
             agent.speed = chasingSpeed; // Set the agent's speed to the chasing speed
-            agent.SetDestination(distanceToPlayer.playerLocation.position); // Set destination to player's position
+            agent.SetDestination(distanceToPlayer.playerLocation.position); // Set destination
         }
     }
     // === End Chase Player State Methods === \\
 
     // === Attack Player State Methods === \\
-    // (To be implemented)
+    public void AttackPlayer(DistanceToPlayer player)
+    {
+            // Here,implement the logic to deal damage to the player.
+            // For example:
+            // player.TakeDamage(attackDamage);
+            Debug.Log("Attacking Player for " + attackDamage + " damage!");
+    }
     // === End Attack Player State Methods === \\
 
     // Gizmos for visualisation

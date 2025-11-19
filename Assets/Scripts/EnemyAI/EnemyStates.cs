@@ -76,7 +76,7 @@ public class EnemyStates : MonoBehaviour
 
             // Handle Attack behavior \\
             case State.Attack:
-                // Handle Attack behavior
+                enemy.AttackPlayer(player);
                 break;
         }
     }

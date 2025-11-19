@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DistanceToPlayer
   playerLocation: {fileID: 1736958907}
-  detectionDistance: 11.71
+  detectionDistance: 12
 --- !u!4 &1230782278
 Transform:
   m_ObjectHideFlags: 0
@@ -1162,6 +1162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   wanderRadius: 10
   agent: {fileID: 0}
+  attackDamage: 10
+  attackRange: 3.5
 --- !u!195 &1230782281
 NavMeshAgent:
   m_ObjectHideFlags: 0
