@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public float wanderRadius = 10f; // Radius for wandering
     private Vector3 startPos; // Starting position of the enemy
     private float wanderSpeed = 2f; // Speed of wandering
+    private float chasingSpeed = 4f; // Speed of chasing
     public NavMeshAgent agent; // Reference to the NavMeshAgent component
 
     private EnemyStates enemyStates; // Reference to the EnemyStates script
@@ -32,8 +33,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        enemyStates = GetComponent<EnemyStates>();
-        distanceToPlayer = GetComponent<DistanceToPlayer>();
+        enemyStates = GetComponent<EnemyStates>(); // Get the EnemyStates component
+        distanceToPlayer = GetComponent<DistanceToPlayer>(); // Get the DistanceToPlayer component
 
         InvokeRepeating("Wander", 0, 5f); // Call the Wander method every 5 seconds
     }
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour
         // A simple, safe check is to only set the destination if the agent is not currently stopped.
         if (agent.isStopped == false)
         {
+            agent.speed = wanderSpeed; // Ensure the agent's speed is set to wandering speed
             // 1. Calculate a random point near the start position
             Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
             randomDirection += startPos;
@@ -87,6 +89,7 @@ public class Enemy : MonoBehaviour
         if (distanceToPlayer != null && distanceToPlayer.playerLocation != null)
         {
             agent.isStopped = false; // Ensure the agent is not stopped
+            agent.speed = chasingSpeed; // Set the agent's speed to the chasing speed
             agent.SetDestination(distanceToPlayer.playerLocation.position); // Set destination to player's position
         }
     }

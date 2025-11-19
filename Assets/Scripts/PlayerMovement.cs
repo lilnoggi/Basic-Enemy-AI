@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>(); // Get the Rigidbody component
         rb.freezeRotation = true; // Freeze rotation to prevent tipping over
-        playerMovementSpeed = playerWalkSpeed; // Initialize movement speed to walk speed
+        playerMovementSpeed = playerWalkSpeed; // Initialise movement speed to walk speed
     }
 
     private void Update()
