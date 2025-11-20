@@ -51,6 +51,9 @@ MonoBehaviour:
   numToSpawn: 1
   spawnRadius: 4
   spawnHeight: 0.25
+  pillarLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4320852215253272660
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +66,7 @@ GameObject:
   - component: {fileID: 343463773182521759}
   - component: {fileID: 7449765706876345806}
   - component: {fileID: 4571922316997323751}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +177,7 @@ GameObject:
   - component: {fileID: 8634958878547514352}
   - component: {fileID: 6491673435379311967}
   - component: {fileID: 205881853360964172}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +288,7 @@ GameObject:
   - component: {fileID: 4282371658194343205}
   - component: {fileID: 3844715572484328002}
   - component: {fileID: 2531262406406067715}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
