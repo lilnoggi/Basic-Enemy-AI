@@ -11,6 +11,7 @@ public class PlayerPickupItem : MonoBehaviour
 
     int bulletsCollected = 0;
     public TextMeshProUGUI ammoCount;
+    public GameObject playerShotgun;
 
     private PlayerHealth playerHealth;
 
@@ -31,6 +32,12 @@ public class PlayerPickupItem : MonoBehaviour
         if (other.CompareTag("HealthPack"))
         {
             playerHealth.HealFull();
+            Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("ShotgunItem"))
+        {
+            playerShotgun.SetActive(true);
             Destroy(other.gameObject);
         }
     }
