@@ -17,6 +17,13 @@ public class Enemy : MonoBehaviour
     private float chasingSpeed = 4f; // Speed of chasing
     public NavMeshAgent agent; // Reference to the NavMeshAgent component
 
+    [Header("Enemy Shooting Settings (Enemy 1)")]
+    public bool useShooterAI = false;
+    public float bulletSpeed = 10f;
+    public float bulletDamage = 40f;
+    public Transform bulletFirePoint;
+    public GameObject bulletPrefab;
+
     [Header("Enemy Patrol Settings (For Enemy 2)")]
     public bool usePatrolAI = false; // Toggle for using patrol AI
     public Transform[] patrolPoints; // Array of patrol points for Enemy 2
@@ -173,13 +180,38 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            if (playerHealth != null)
+            if (useShooterAI)
             {
-                Debug.Log("Attacking Player for " + attackDamage + " damage!"); // Log attack action
-                playerHealth.TakeDamage(attackDamage); // Inflict damage to the player
+                FacePlayer(player);
+                EnemyShootGun();
+            }
+            else
+            {
+                if (playerHealth != null)
+                {
+                    Debug.Log("Attacking Player for " + attackDamage + " damage!"); // Log attack action
+                    playerHealth.TakeDamage(attackDamage); // Inflict damage to the player
+                }
             }
             
             nextAttackTime = Time.time + attackCooldown; // Set the next attack time
+        }
+    }
+
+    void EnemyShootGun()
+    {
+        if (bulletPrefab != null && bulletFirePoint != null)
+        {
+            Debug.Log("Enemy shot gun!");
+
+            GameObject tempBullet = Instantiate(bulletPrefab, bulletFirePoint.position, bulletFirePoint.rotation);
+
+            Bullet bulletScript = tempBullet.GetComponent<Bullet>();
+            if (bulletScript != null)
+            {
+                bulletScript.speed = bulletSpeed;
+                bulletScript.damage = bulletDamage;
+            }
         }
     }
 
