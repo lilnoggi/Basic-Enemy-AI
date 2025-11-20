@@ -2783,6 +2783,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 392561015211821544, guid: 7416c9f3c57238f4bab64a345ad82db2, type: 3}
   m_PrefabInstance: {fileID: 1585939935}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1588650951 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1793219421699108180, guid: 8b5c0a6608b32d443b9ace1ad64b0cd2, type: 3}
+  m_PrefabInstance: {fileID: 567062975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!195 &1600055331 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 5464930582195983768, guid: 0dc72035c14d29b4b9ffb35a84a523f0, type: 3}
@@ -3119,9 +3124,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1980248966}
     - target: {fileID: 5224508728680578978, guid: 3e2520fd836855243a94b1c42ef9114d, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 4007294048654790455, guid: 5b029b4b83108cf47886a6b56a708cdf, type: 3}
+    - target: {fileID: 5224508728680578978, guid: 3e2520fd836855243a94b1c42ef9114d, type: 3}
       propertyPath: playerShotgun
       value: 
       objectReference: {fileID: 1179506250}
+    - target: {fileID: 5224508728680578978, guid: 3e2520fd836855243a94b1c42ef9114d, type: 3}
+      propertyPath: bulletFirePoint
+      value: 
+      objectReference: {fileID: 1588650951}
     - target: {fileID: 7173277496774007766, guid: 3e2520fd836855243a94b1c42ef9114d, type: 3}
       propertyPath: m_Name
       value: Player
