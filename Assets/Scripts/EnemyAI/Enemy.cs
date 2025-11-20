@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour
     // Attach this script to the enemy GameObject in the scene.
     // ================================= \\
 
+    public float enemyMaxHealth = 100;
+    public float enemyCurrentHealth = 0;
+
     [Header("Enemy Wandering Settings")]
     public float wanderRadius = 10f; // Radius for wandering
     private Vector3 startPos; // Starting position of the enemy
@@ -53,6 +56,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        enemyCurrentHealth = enemyMaxHealth;
+
         enemyStates = GetComponent<EnemyStates>();
         distanceToPlayer = GetComponent<DistanceToPlayer>();
 

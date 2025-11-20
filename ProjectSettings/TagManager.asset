@@ -10,6 +10,7 @@ TagManager:
   - Pillar
   - HealthPack
   - Wall
+  - ShotgunItem
   layers:
   - Default
   - TransparentFX
