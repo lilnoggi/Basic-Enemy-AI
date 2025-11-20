@@ -207,7 +207,7 @@ public class Enemy : MonoBehaviour
     {
         if (bulletPrefab != null && bulletFirePoint != null)
         {
-            Debug.Log("Enemy shot gun!");
+            //Debug.Log("Enemy shot gun!");
 
             GameObject tempBullet = Instantiate(bulletPrefab, bulletFirePoint.position, bulletFirePoint.rotation);
 
@@ -247,6 +247,21 @@ public class Enemy : MonoBehaviour
     }
 
     // === End Bubble Sort Patrol Points Method === \\
+
+    public void TakeDamage(float damageAmount)
+    {
+        enemyCurrentHealth -= damageAmount; // Reduce current health by damage amount
+        enemyCurrentHealth = Mathf.Clamp(enemyCurrentHealth, 0, enemyMaxHealth); // Clamp health between 0 and maxHealth
+        if (enemyCurrentHealth <= 0)
+        {
+            Die(); // Call Die method if health reaches zero
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
 
     // Gizmos for visualisation
     private void OnDrawGizmosSelected()

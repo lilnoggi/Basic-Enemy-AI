@@ -29,9 +29,19 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        else if (other.CompareTag("Wall"))
+        else if (other.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+            Enemy enemyScript = other.GetComponent<Enemy>();
+
+            if (enemyScript != null)
+            {
+                enemyScript.TakeDamage(damage);
+            }
+
+            else if (other.CompareTag("Wall"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
