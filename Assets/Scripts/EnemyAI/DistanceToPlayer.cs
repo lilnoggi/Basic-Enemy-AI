@@ -63,7 +63,7 @@ public class DistanceToPlayer : MonoBehaviour
     // Gizmos for visualizing detection range in the editor \\
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red; // Set gizmo color to red
+        Gizmos.color = Color.yellow; // Set gizmo color to red
         Gizmos.DrawWireSphere(transform.position, detectionDistance); // Draw a wire sphere representing detection range
     }
 }
