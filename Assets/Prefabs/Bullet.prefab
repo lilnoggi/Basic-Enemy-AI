@@ -575,9 +575,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8665994306012432821}
   - component: {fileID: 2817525821307242342}
+  - component: {fileID: 2253936167292593863}
+  - component: {fileID: 7526954924619365256}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: BulletItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -615,6 +617,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ca33140829180a49a43100ae7d4b39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSpin
+--- !u!135 &2253936167292593863
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714837557297294947}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.35533705
+  m_Center: {x: 0, y: 0.04469064, z: -0.110003054}
+--- !u!114 &7526954924619365256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714837557297294947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3ca42f09bd9c44da3a7be6984cce29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletPickedUp
 --- !u!1 &5804321542522306256
 GameObject:
   m_ObjectHideFlags: 0
