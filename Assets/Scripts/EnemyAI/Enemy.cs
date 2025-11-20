@@ -17,6 +17,11 @@ public class Enemy : MonoBehaviour
     private float chasingSpeed = 4f; // Speed of chasing
     public NavMeshAgent agent; // Reference to the NavMeshAgent component
 
+    [Header("Enemy Patrol Settings (For Enemy 2)")]
+    public bool usePatrolAI = false; // Toggle for using patrol AI
+    public Transform[] patrolPoints; // Array of patrol points for Enemy 2
+    private int currentPatrolIndex = 0; // Current index in the patrol points array
+
     [Header("Attack Settings")]
     public float attackDamage = 10f; // Damage dealt to the player
     public float attackRange = 2f; // Range for attacking the player
@@ -45,13 +50,19 @@ public class Enemy : MonoBehaviour
         distanceToPlayer = GetComponent<DistanceToPlayer>();
 
         // --- THE FIX ---
-        // 1. Check if we have a reference to the player location
+        // 1. Check if there is a reference to the player location
         if (distanceToPlayer != null && distanceToPlayer.playerLocation != null)
         {
             // 2. Find the PlayerHealth script specifically ON THE PLAYER OBJECT
             playerHealth = distanceToPlayer.playerLocation.GetComponent<PlayerHealth>();
         }
         // ----------------
+
+        // --- Patrol AI Setup --- \\
+        if (usePatrolAI && patrolPoints.Length > 0)
+        {
+            BubbleSortPatrolPoints();
+        }
 
         InvokeRepeating("Wander", 0, 5f);
     }
@@ -69,6 +80,25 @@ public class Enemy : MonoBehaviour
         if (agent.isStopped == false)
         {
             agent.speed = wanderSpeed; // Ensure the agent's speed is set to wandering speed
+
+            // --- IF ENEMY 2 (PATROL) --- \\
+            if (usePatrolAI && patrolPoints.Length > 0)
+            {
+                agent.speed = 5f;
+                // Move to the specific pillar
+                agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+
+                // Check if enemy 2 reached the patrol point
+                if (Vector3.Distance(transform.position, patrolPoints[currentPatrolIndex].position) < 1.5f)
+                {
+                    // Go to the next point
+                    currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+                }
+            }
+            // --- IF ENEMY 1 (RANDOM WANDER) --- \\
+            else
+            { 
+
             // 1. Calculate a random point near the start position
             Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
             randomDirection += startPos;
@@ -82,6 +112,7 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+}
     // === End Wandering State Methods === \\
 
     // === Detected Player State Methods === \\
@@ -153,6 +184,32 @@ public class Enemy : MonoBehaviour
     }
 
     // === End Attack Player State Methods === \\
+
+    // === Bubble Sort Patrol Points Method === \\
+
+    void BubbleSortPatrolPoints()
+    {
+        int n = patrolPoints.Length;
+
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                // Compare names alphabetically
+                if (string.Compare(patrolPoints[j].name, patrolPoints[j + 1].name) > 0)
+                {
+                    // Swap them
+                    Transform temp = patrolPoints[j];
+                    patrolPoints[j] = patrolPoints[j + 1];
+                    patrolPoints[j + 1] = temp;
+                }
+            }
+        }
+
+        Debug.Log(gameObject.name + " has sorted patrol points:");
+    }
+
+    // === End Bubble Sort Patrol Points Method === \\
 
     // Gizmos for visualisation
     private void OnDrawGizmosSelected()

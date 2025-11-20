@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 3275226723875367091}
   - component: {fileID: 4373546798789268431}
   - component: {fileID: 336166302501096942}
+  - component: {fileID: 5224508728680578978}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -251,4 +252,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   playerMovementSpeed: 4
+  playerWalkSpeed: 2
+  playerSprintSpeed: 5
   orientation: {fileID: 363599874490398912}
+--- !u!114 &5224508728680578978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7173277496774007766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784e36b38d2647b41b7bb30c1e4e5f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPickupItem
+  ammoCount: {fileID: 0}

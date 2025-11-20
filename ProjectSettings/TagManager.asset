@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Bullet
+  - BulletItem
+  - Pillar
+  - HealthPack
   layers:
   - Default
   - TransparentFX
@@ -13,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Pillar
   - 
   - 
   - 
