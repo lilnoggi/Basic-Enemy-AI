@@ -687,6 +687,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1600055331}
     - target: {fileID: 6134710525198749883, guid: 0dc72035c14d29b4b9ffb35a84a523f0, type: 3}
+      propertyPath: attackRange
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6134710525198749883, guid: 0dc72035c14d29b4b9ffb35a84a523f0, type: 3}
       propertyPath: usePatrolAI
       value: 1
       objectReference: {fileID: 0}
@@ -2764,6 +2768,10 @@ PrefabInstance:
       propertyPath: playerLocation
       value: 
       objectReference: {fileID: 1736958907}
+    - target: {fileID: 4752410799427584403, guid: 9aeb0f86087b3ee488e38c251fb0cb2f, type: 3}
+      propertyPath: attackRange
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 7852062213814162702, guid: 9aeb0f86087b3ee488e38c251fb0cb2f, type: 3}
       propertyPath: m_Name
       value: Enemy1
