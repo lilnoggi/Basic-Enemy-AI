@@ -36,4 +36,11 @@ public class SpawnBullets : MonoBehaviour
 
         return randomPosition;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
+        Gizmos.DrawCube(transform.position + new Vector3(0, spawnHeight, 0), Vector3.one * 0.2f);
+    }
 }
