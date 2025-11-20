@@ -2401,6 +2401,8 @@ MonoBehaviour:
   currentHealth: 0
   healthText: {fileID: 1036151371}
   gameOverPanel: {fileID: 110340931}
+  healthPackPrefab: {fileID: 8526798327397890568, guid: 9219813d1ac0cdc4eacf6029f46d29ad, type: 3}
+  spawnRadius: 5
 --- !u!1 &1980248964
 GameObject:
   m_ObjectHideFlags: 0

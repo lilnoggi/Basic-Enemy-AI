@@ -12,12 +12,25 @@ public class PlayerPickupItem : MonoBehaviour
     int bulletsCollected = 0;
     public TextMeshProUGUI ammoCount;
 
+    private PlayerHealth playerHealth;
+
+    private void Start()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("BulletItem"))
         {
             bulletsCollected++;
             ammoCount.text = "Ammo: " + bulletsCollected;
+            Destroy(other.gameObject);
+        }
+        
+        if (other.CompareTag("HealthPack"))
+        {
+            playerHealth.HealFull();
             Destroy(other.gameObject);
         }
     }

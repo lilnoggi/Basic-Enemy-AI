@@ -17,6 +17,10 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI healthText; // UI element to display health
     public GameObject gameOverPanel; // Game over panel
 
+    [Header("Player Health Pack")]
+    public GameObject healthPackPrefab;
+    public float spawnRadius = 1.0f;
+    private bool healthPackSpawned = false; 
 
     private void Start()
     {
@@ -27,6 +31,13 @@ public class PlayerHealth : MonoBehaviour
     {
         // Update the health UI text
         healthText.text = $"Health: {currentHealth}/{maxHealth}";
+
+        // If player's health is less than or equal to 45, spawn a health pack.
+        if (currentHealth <= 45 && !healthPackSpawned)
+        {
+            SpawnHealthPack();
+            healthPackSpawned = true;
+        }
     }
 
     // Method to apply damage to the player \\
@@ -53,5 +64,35 @@ public class PlayerHealth : MonoBehaviour
         // Handle player death (e.g., respawn, game over screen, etc.)
         Debug.Log("Player has died.");
         gameOverPanel.SetActive(true); // Show game over panel
+    }
+
+    // --- Spawn Health Pack --- \\
+    public void SpawnHealthPack()
+    {
+        if (healthPackPrefab != null)
+        {
+            Vector2 randomPoint = Random.insideUnitCircle * spawnRadius;
+
+            Vector3 spawnPos = new Vector3(
+                transform.position.x + randomPoint.x,
+                transform.position.y,
+                transform.position.z + randomPoint.y
+                );
+
+            Instantiate(healthPackPrefab, spawnPos, Quaternion.identity );
+        }
+    }
+
+    // --- Heal the player --- \\
+    public void HealFull()
+    {
+        currentHealth = maxHealth;
+        healthPackSpawned = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }
 }

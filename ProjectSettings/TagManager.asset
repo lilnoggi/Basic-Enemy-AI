@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - BulletItem
   - Pillar
+  - HealthPack
   layers:
   - Default
   - TransparentFX
