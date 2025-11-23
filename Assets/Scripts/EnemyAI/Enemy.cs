@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Enemy Shooting Settings (Enemy 1)")]
     public bool useShooterAI = false;
-    public float bulletSpeed = 10f;
+    public float bulletSpeed = 30f;
     public float bulletDamage = 40f;
     public Transform bulletFirePoint;
     public GameObject bulletPrefab;
