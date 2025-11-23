@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, 5f); // Destroy game object after 5 seconds.
+        Destroy(gameObject, 2f); // Destroy game object after 5 seconds.
     }
 
     void Update()
@@ -38,10 +38,12 @@ public class Bullet : MonoBehaviour
                 enemyScript.TakeDamage(damage);
             }
 
-            else if (other.CompareTag("Wall"))
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
+        }
+
+        else if (other.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
         }
     }
 }
