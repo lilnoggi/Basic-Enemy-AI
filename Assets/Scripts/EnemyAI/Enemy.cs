@@ -250,6 +250,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
+        Debug.Log(gameObject.name + " took damage: " + damageAmount);
         enemyCurrentHealth -= damageAmount; // Reduce current health by damage amount
         enemyCurrentHealth = Mathf.Clamp(enemyCurrentHealth, 0, enemyMaxHealth); // Clamp health between 0 and maxHealth
         if (enemyCurrentHealth <= 0)

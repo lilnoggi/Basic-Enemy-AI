@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
 
         else if (other.CompareTag("Enemy"))
         {
-            Enemy enemyScript = other.GetComponent<Enemy>();
+            Enemy enemyScript = other.GetComponentInParent<Enemy>();
 
             if (enemyScript != null)
             {
