@@ -10,12 +10,22 @@ public class Enemy : MonoBehaviour
     // Attach this script to the enemy GameObject in the scene.
     // ================================= \\
 
+    public float enemyMaxHealth = 100;
+    public float enemyCurrentHealth = 0;
+
     [Header("Enemy Wandering Settings")]
     public float wanderRadius = 10f; // Radius for wandering
     private Vector3 startPos; // Starting position of the enemy
     private float wanderSpeed = 2f; // Speed of wandering
     private float chasingSpeed = 4f; // Speed of chasing
     public NavMeshAgent agent; // Reference to the NavMeshAgent component
+
+    [Header("Enemy Shooting Settings (Enemy 1)")]
+    public bool useShooterAI = false;
+    public float bulletSpeed = 30f;
+    public float bulletDamage = 40f;
+    public Transform bulletFirePoint;
+    public GameObject bulletPrefab;
 
     [Header("Enemy Patrol Settings (For Enemy 2)")]
     public bool usePatrolAI = false; // Toggle for using patrol AI
@@ -46,6 +56,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        enemyCurrentHealth = enemyMaxHealth;
+
         enemyStates = GetComponent<EnemyStates>();
         distanceToPlayer = GetComponent<DistanceToPlayer>();
 
@@ -173,13 +185,38 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            if (playerHealth != null)
+            if (useShooterAI)
             {
-                Debug.Log("Attacking Player for " + attackDamage + " damage!"); // Log attack action
-                playerHealth.TakeDamage(attackDamage); // Inflict damage to the player
+                FacePlayer(player);
+                EnemyShootGun();
+            }
+            else
+            {
+                if (playerHealth != null)
+                {
+                    Debug.Log("Attacking Player for " + attackDamage + " damage!"); // Log attack action
+                    playerHealth.TakeDamage(attackDamage); // Inflict damage to the player
+                }
             }
             
             nextAttackTime = Time.time + attackCooldown; // Set the next attack time
+        }
+    }
+
+    void EnemyShootGun()
+    {
+        if (bulletPrefab != null && bulletFirePoint != null)
+        {
+            //Debug.Log("Enemy shot gun!");
+
+            GameObject tempBullet = Instantiate(bulletPrefab, bulletFirePoint.position, bulletFirePoint.rotation);
+
+            Bullet bulletScript = tempBullet.GetComponent<Bullet>();
+            if (bulletScript != null)
+            {
+                bulletScript.speed = bulletSpeed;
+                bulletScript.damage = bulletDamage;
+            }
         }
     }
 
@@ -210,6 +247,22 @@ public class Enemy : MonoBehaviour
     }
 
     // === End Bubble Sort Patrol Points Method === \\
+
+    public void TakeDamage(float damageAmount)
+    {
+        Debug.Log(gameObject.name + " took damage: " + damageAmount);
+        enemyCurrentHealth -= damageAmount; // Reduce current health by damage amount
+        enemyCurrentHealth = Mathf.Clamp(enemyCurrentHealth, 0, enemyMaxHealth); // Clamp health between 0 and maxHealth
+        if (enemyCurrentHealth <= 0)
+        {
+            Die(); // Call Die method if health reaches zero
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
 
     // Gizmos for visualisation
     private void OnDrawGizmosSelected()

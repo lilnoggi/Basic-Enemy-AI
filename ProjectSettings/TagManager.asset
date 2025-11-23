@@ -9,6 +9,8 @@ TagManager:
   - BulletItem
   - Pillar
   - HealthPack
+  - Wall
+  - ShotgunItem
   layers:
   - Default
   - TransparentFX
